@@ -55,7 +55,6 @@ const askRemove = () => {
     hide()
     if (error.value) {
       danger('Erro ao excluir o Quadro de Avisos.', error.value?.data.message)
-      console.log(error.value)
     } else {
       emit('remove', props.board)
     }
