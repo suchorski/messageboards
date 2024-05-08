@@ -170,7 +170,7 @@ const removeAllocation = (allocation: TAllocation) => {
 
 <style lang="postcss" scoped>
 .actions {
-  @apply flex flex-row justify-between items-center space-x-2;
+  @apply flex flex-row justify-between items-stretch space-x-2;
 }
 
 .actions > * {
