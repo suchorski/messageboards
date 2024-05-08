@@ -15,7 +15,7 @@
     "@nuxt/ui": "^2.16.0",
     "@pinia/nuxt": "^0.5.1",
     "date-fns": "^3.6.0",
-    "keycloak-js": "^24.0.3",
+    "keycloak-js": "^24.0.4",
     "nuxt": "^3.11.2",
     "primeicons": "^7.0.0",
     "quill": "^2.0.1",
