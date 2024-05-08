@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body * {
+    @apply transition-colors duration-300;
+  }
+
+  h1 {
+    @apply text-2xl font-bold text-primary-900;
+  }
+
+  h2 {
+    @apply text-xl font-bold text-primary-800;
+  }
+
+  h3 {
+    @apply font-bold text-primary-700;
+  }
+}

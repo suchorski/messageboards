@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  backend:
+    environment:
+      JDBC_DATABASE_URL: ${JDBC_DATABASE_URL}
+      JDBC_DATABASE_USERNAME: ${JDBC_DATABASE_USERNAME}
+      JDBC_DATABASE_PASSWORD: ${JDBC_DATABASE_PASSWORD}
+      OAUTH2_ISSUER_URI: ${OAUTH2_ISSUER_URI}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    container_name: messageboards-backend
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    networks:
+      messageboards:
+        ipv4_address: ${IP_BACKEND:-192.168.100.3}
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+      args:
+        KEYCLOAK_URL: ${KEYCLOAK_URL}
+        KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+        KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+        API_ENTRYPOINT: ${API_ENTRYPOINT}
+    container_name: messageboards-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    networks:
+      messageboards:
+        ipv4_address: ${IP_FRONTEND:-192.168.100.2}
+
+networks:
+  messageboards:
+    ipam:
+      driver: default
+      config:
+        - subnet: ${SUBNET:-192.168.100.0/29}

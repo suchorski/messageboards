@@ -1,0 +1,19 @@
+FROM node:lts-alpine3.19 as build
+WORKDIR /src/app
+COPY app .
+ARG KEYCLOAK_URL
+ENV KEYCLOAK_URL=$KEYCLOAK_URL
+ARG KEYCLOAK_REALM
+ENV KEYCLOAK_REALM=$KEYCLOAK_REALM
+ARG KEYCLOAK_CLIENT_ID
+ENV KEYCLOAK_CLIENT_ID=$KEYCLOAK_CLIENT_ID
+ARG API_ENTRYPOINT
+ENV API_ENTRYPOINT=$API_ENTRYPOINT
+RUN env
+RUN npm install -g pnpm
+RUN pnpm install && pnpm build
+
+FROM node:lts-alpine3.19
+WORKDIR /app
+COPY --from=build /src/app/.output .
+ENTRYPOINT ["node", "server/index.mjs"]
