@@ -3,7 +3,10 @@ import { type TBoard } from '~/composables/api/board'
 import { type TAllocation } from '~/composables/api/allocation'
 
 const props = defineProps<{ board: TBoard }>()
-const emit = defineEmits<{ (e: 'remove', value: TBoard): void }>()
+const emit = defineEmits<{
+  (e: 'update', value: TBoard): void
+  (e: 'remove', value: TBoard): void
+}>()
 
 const { success, warning, danger } = useToaster()
 const { show, hide } = useLoading()
@@ -23,6 +26,22 @@ const askAllocate = (id: number) => {
       danger('Erro ao alocar o militar.', error.value?.data.message)
     } else {
       success('Militar alocado com sucesso.')
+    }
+  })
+}
+
+const askEdit = () => {
+  const { prompt } = useModals()
+  prompt('Editar Quadro de Avisos', 'Informe o novo nome do Quadro de Avisos:', async (name) => {
+    const { updateName } = useBoardApi()
+    show()
+    const { error } = await updateName(props.board, name)
+    hide()
+    if (error.value) {
+      danger('Erro ao editar o Quadro de Avisos.', error.value?.data.message)
+    } else {
+      props.board.name = name
+      emit('update', { ...props.board, name })
     }
   })
 }
@@ -97,6 +116,17 @@ const removeAllocation = (allocation: TAllocation) => {
             <UButton :icon="useIcon().add" color="green" block class="text" @click="askAllocate(board.id!)"
               >Alocar Usuário</UButton
             >
+          </UTooltip>
+          <UTooltip text="Editar nome do Quadro de Avisos">
+            <UButton
+              :icon="useIcon().pencil"
+              color="orange"
+              block
+              aria-label="Editar"
+              class="no-text"
+              @click="askEdit"
+            />
+            <UButton :icon="useIcon().pencil" color="orange" block class="text" @click="askEdit">Editar</UButton>
           </UTooltip>
           <UTooltip text="Excluir Quadro de Avisos">
             <UButton

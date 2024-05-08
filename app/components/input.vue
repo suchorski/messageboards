@@ -6,6 +6,8 @@ defineEmits<{
 }>()
 
 const input = ref<string>('')
+
+const empty = computed(() => input.value.trim().length === 0)
 </script>
 
 <template>
@@ -19,12 +21,12 @@ const input = ref<string>('')
       </template>
       <section>
         <p>{{ message }}</p>
-        <UInput v-model="input" autofocus @keyup.enter="$emit('confirm', input)" />
+        <UInput v-model="input" autofocus @keyup.enter="!empty && $emit('confirm', input)" />
       </section>
       <template #footer>
         <footer>
           <UButton color="gray" label="Cancelar" block @click="$emit('cancel')" />
-          <UButton label="Confirmar" block @click="$emit('confirm', input)" :disabled="input.trim().length === 0" />
+          <UButton label="Confirmar" block @click="$emit('confirm', input)" :disabled="empty" />
         </footer>
       </template>
     </UCard>

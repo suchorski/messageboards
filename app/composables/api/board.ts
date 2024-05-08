@@ -12,10 +12,19 @@ export const useBoardApi = () => {
 
   const list = () => useApi<TBoards>('/boards/list', { key: 'boards:list:mine', method: 'get' })
 
+  const updateName = (board: TBoard, newName: string) => {
+    const updatedBoard = { ...board, name: newName }
+    return useApi<TBoard>(`/boards/${board.id}`, {
+      key: `boards:update:${board.id}`,
+      method: 'put',
+      body: updatedBoard,
+    })
+  }
+
   const remove = (board: TBoard) =>
     useApi<void>(`/boards/${board.id}`, { key: `boards:delete:${board.id}`, method: 'delete' })
 
   const sorter = (left: TBoard, right: TBoard) => left.name.localeCompare(right.name)
 
-  return { add, list, remove, sorter }
+  return { add, list, updateName, remove, sorter }
 }

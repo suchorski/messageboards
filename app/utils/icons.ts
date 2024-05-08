@@ -11,8 +11,25 @@ export const useIcon = () => {
   const warning = 'i-heroicons-exclamation-circle'
   const error = 'i-heroicons-x-circle'
   const chevron = 'i-heroicons-chevron-down'
+  const pencil = 'i-heroicons-pencil'
   const ok = 'i-heroicons-hand-thumb-up'
   const chat = 'i-heroicons-chat-bubble-left-right'
 
-  return { logout, loading, add, users, trash, check, close, information, success, warning, error, chevron, ok, chat }
+  return {
+    logout,
+    loading,
+    add,
+    users,
+    trash,
+    check,
+    close,
+    information,
+    success,
+    warning,
+    error,
+    chevron,
+    pencil,
+    ok,
+    chat,
+  }
 }

@@ -5,7 +5,7 @@ const { list, sorter } = useBoardApi()
 const { success, warning, danger } = useToaster()
 const { show, hide } = useLoading()
 
-const { removeBoard } = useBoardStore()
+const { updateBoard, removeBoard } = useBoardStore()
 
 const { data: stateData, pending: statePending, error: stateError } = list()
 watch(statePending, (pending) => {
@@ -32,6 +32,16 @@ const askAdd = () => {
       success('Quadro de Avisos criado com sucesso.')
     }
   })
+}
+
+const update = (board: TBoard) => {
+  const index = stateData.value?.content.indexOf(board)
+  if (index !== undefined) {
+    updateBoard(board)
+    success('Quadro de Avisos atualizado com sucesso.')
+  } else {
+    warning('Quadro de Avisos não encontrado.')
+  }
 }
 
 const remove = (board: TBoard) => {
@@ -66,7 +76,7 @@ const remove = (board: TBoard) => {
       <Alert v-else-if="!stateData?.content.length" key="empty" title="Nenhum quadro encontrado." warning />
       <section v-else key="data">
         <div class="boards" v-auto-animate>
-          <Board v-for="board in stateData?.content" :key="board.id" :board="board" @remove="remove" />
+          <Board v-for="board in stateData?.content" :key="board.id" :board="board" @update="update" @remove="remove" />
         </div>
       </section>
     </Transition>

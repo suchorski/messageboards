@@ -7,6 +7,8 @@
     <div class="actions">
       <USkeleton class="action" />
       <USkeleton class="action" />
+      <USkeleton class="action" />
+      <USkeleton class="action" />
     </div>
   </div>
 </template>
