@@ -18,6 +18,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +32,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "uq_user_cpf", columnNames = "cpf"),
@@ -38,6 +41,7 @@ import lombok.Setter;
         @Index(name = "idx_user_name", columnList = "name"),
         @Index(name = "idx_user_om", columnList = "om"),
 })
+@Builder
 public class User implements Serializable {
 
     private static final long serialVersionUID = -1_000_000L;
@@ -76,6 +80,7 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonIgnore
+    @Builder.Default
     private Set<Allocation> allocations = new HashSet<>();
 
 }

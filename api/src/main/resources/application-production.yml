@@ -16,3 +16,18 @@ logging:
 
 cors:
   allowed-origins: ${CORS_ALLOWED_ORIGINS}
+
+ldap:
+  enabled: ${LDAP_ENABLED:false}
+  provider-url: ${LDAP_PROVIDER_URL}
+  security-authentication: ${LDAP_SECURITY_AUTHENTICATION}
+  security-principal: ${LDAP_SECURITY_PRINCIPAL}
+  security-credentials: ${LDAP_SECURITY_CREDENTIALS}
+  parameters:
+    name: ${LDAP_PARAMETERS_NAME}
+    nickname: ${LDAP_PARAMETERS_NICKNAME}
+    rank: ${LDAP_PARAMETERS_RANK}
+    om: ${LDAP_PARAMETERS_OM}
+  filters:
+    base-ou: ${LDAP_FILTERS_BASE_OU}
+    user-filter: ${LDAP_FILTERS_USER_FILTER}

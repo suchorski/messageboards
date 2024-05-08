@@ -22,6 +22,17 @@
 - `CORS_ALLOWED_ORIGINS`: Allowed origins for CORS.
 - `APP_PROFILE`: Application execution profile. Default: `production`
 - `LOGGING_LEVEL`: Log level. Default: `INFO`
+- `LDAP_ENABLED`: Enable LDAP authentication. Default: `false`
+- `LDAP_PROVIDER_URL`: LDAP provider URL.
+- `LDAP_SECURITY_AUTHENTICATION`: LDAP security authentication type. Usualy `simple`.
+- `LDAP_SECURITY_PRINCIPAL`: LDAP security principal.
+- `LDAP_SECURITY_CREDENTIALS`: LDAP security credentials.
+- `LDAP_PARAMETERS_NAME`: LDAP parameters name.
+- `LDAP_PARAMETERS_NICKNAME`: LDAP parameters nickname.
+- `LDAP_PARAMETERS_RANK`: LDAP parameters rank.
+- `LDAP_PARAMETERS_OM`: LDAP parameters OM.
+- `LDAP_FILTERS_BASE_OU`: LDAP filters base OU.
+- `LDAP_FILTERS_USER_FILTER`: LDAP filters user filter. Usualy `(uid=%s)`
 
 ### Keycloak roles
 

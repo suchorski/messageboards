@@ -1,5 +1,7 @@
 package com.suchorski.messageboards.api.controllers;
 
+import javax.naming.NamingException;
+
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +17,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.suchorski.messageboards.api.components.AuthenticationUtils;
+import com.suchorski.messageboards.api.components.LdapUtils;
 import com.suchorski.messageboards.api.dtos.AllocationDTO;
 import com.suchorski.messageboards.api.dtos.AllocationUpdateDTO;
 import com.suchorski.messageboards.api.models.Allocation;
+import com.suchorski.messageboards.api.models.User;
 import com.suchorski.messageboards.api.repositories.AllocationRepository;
 import com.suchorski.messageboards.api.repositories.BoardRepository;
 import com.suchorski.messageboards.api.repositories.UserRepository;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -35,17 +40,26 @@ public class AllocationsController {
     private AllocationRepository allocationRepository;
     private UserRepository userRepository;
     private BoardRepository boardRepository;
+    private LdapUtils ldapUtils;
 
+    @Transactional
     @PostMapping
     @ResponseBody
     public ResponseEntity<?> save(@NonNull @Valid @RequestBody AllocationDTO allocationDTO,
-            Authentication authentication) {
+            Authentication authentication) throws ResponseStatusException, NamingException {
         log.debug("Saving allocation...");
         final var user = authenticationUtils.findOrCreateUser(authentication);
-        final var allocatedUser = userRepository
-                .findByCpf(allocationDTO.getCpf())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        UserRepository.ALLOCATED_USER_NOT_FOUND));
+        final var allocatedUserDatabase = userRepository.findByCpf(allocationDTO.getCpf());
+        User allocatedUser;
+        if (allocatedUserDatabase.isEmpty()) {
+            final var allocatedUserLdap = ldapUtils
+                    .findByCpf(allocationDTO.getCpf())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                            UserRepository.ALLOCATED_USER_NOT_FOUND));
+            allocatedUser = userRepository.save(allocatedUserLdap);
+        } else {
+            allocatedUser = allocatedUserDatabase.get();
+        }
         if (user.equals(allocatedUser)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, AllocationRepository.SAME_USER);
         }
