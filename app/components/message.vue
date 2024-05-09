@@ -52,7 +52,7 @@ const toComments = (id: number) => {
     <template #header>
       <header>
         <h2>Aviso de {{ message.author.rank }} {{ message.author.nickname }}</h2>
-        <UTooltip :text="`${message.author.rank} ${message.author.name} do ${message.author.om}`">
+        <UTooltip :text="`${message.author.rank} ${message.author.name} do ${message.author.company}`">
           <UBadge variant="soft">
             <UIcon :name="useIcon().information" />
           </UBadge>

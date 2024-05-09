@@ -51,9 +51,9 @@
       "description": "Rank parameter of LDAP for rank on User parameter."
     },
     {
-      "name": "ldap.parameters.om",
+      "name": "ldap.parameters.company",
       "type": "java.lang.String",
-      "description": "OM parameter of LDAP for om on User parameter."
+      "description": "Company parameter of LDAP for company on User parameter."
     },
     {
       "name": "ldap.filters.base-ou",

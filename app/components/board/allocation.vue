@@ -57,7 +57,7 @@ const askRemove = () => {
   <li>
     <section class="name">
       <span>{{ allocation.user.rank }} {{ allocation.user.nickname }}</span>
-      <UTooltip :text="`${allocation.user.rank} ${allocation.user.name} do ${allocation.user.om}`">
+      <UTooltip :text="`${allocation.user.rank} ${allocation.user.name} do ${allocation.user.company}`">
         <UBadge variant="soft">
           <UIcon :name="useIcon().information" />
         </UBadge>

@@ -30,7 +30,7 @@ public class AuthenticationUtils {
             user.setName(name);
             user.setNickname(nickname);
             user.setRank(rank);
-            user.setOm(company);
+            user.setCompany(company);
             return userRepository.save(user);
         } else {
             log.debug("Creating new user with CPF {}", cpf);

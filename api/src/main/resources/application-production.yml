@@ -27,7 +27,7 @@ ldap:
     name: ${LDAP_PARAMETERS_NAME}
     nickname: ${LDAP_PARAMETERS_NICKNAME}
     rank: ${LDAP_PARAMETERS_RANK}
-    om: ${LDAP_PARAMETERS_OM}
+    company: ${LDAP_PARAMETERS_COMPANY}
   filters:
     base-ou: ${LDAP_FILTERS_BASE_OU}
     user-filter: ${LDAP_FILTERS_USER_FILTER}

@@ -17,6 +17,6 @@ public interface MessageViewIdComments {
 
     List<CommentViewIdTextUser> getComments();
 
-    UserViewNameNicknameOmRankNoId getAuthor();
+    UserViewNameNicknameCompanyRankNoId getAuthor();
 
 }

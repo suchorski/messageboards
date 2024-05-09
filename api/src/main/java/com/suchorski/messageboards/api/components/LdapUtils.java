@@ -41,8 +41,8 @@ public class LdapUtils {
     private String ldapParameterNickname;
     @Value("${ldap.parameters.rank}")
     private String ldapParameterRank;
-    @Value("${ldap.parameters.om}")
-    private String ldapParameterOm;
+    @Value("${ldap.parameters.company}")
+    private String ldapParameterCompany;
     @Value("${ldap.filters.base-ou}")
     private String ldapFilterBaseOu;
     @Value("${ldap.filters.user-filter}")
@@ -87,7 +87,7 @@ public class LdapUtils {
         if (running) {
             SearchControls searchControls = new SearchControls();
             searchControls.setReturningAttributes(
-                    new String[] { ldapParameterName, ldapParameterNickname, ldapParameterOm, ldapParameterRank });
+                    new String[] { ldapParameterName, ldapParameterNickname, ldapParameterCompany, ldapParameterRank });
             searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
             NamingEnumeration<SearchResult> naming = ldapContext.search(ldapFilterBaseOu,
                     String.format(ldapFilterUserFilter, cpf),
@@ -100,7 +100,7 @@ public class LdapUtils {
                                 .cpf(cpf)
                                 .name(attrs.get(ldapParameterName).get().toString())
                                 .nickname(attrs.get(ldapParameterNickname).get().toString())
-                                .om(attrs.get(ldapParameterOm).get().toString())
+                                .company(attrs.get(ldapParameterCompany).get().toString())
                                 .rank(attrs.get(ldapParameterRank).get().toString())
                                 .build());
             }

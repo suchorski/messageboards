@@ -40,7 +40,7 @@ import lombok.Setter;
 }, indexes = {
         @Index(name = "idx_user_cpf", columnList = "cpf"),
         @Index(name = "idx_user_name", columnList = "name"),
-        @Index(name = "idx_user_om", columnList = "om"),
+        @Index(name = "idx_user_company", columnList = "company"),
 })
 @Builder
 public class User implements Serializable {
@@ -77,7 +77,7 @@ public class User implements Serializable {
     @NonNull
     @Column(nullable = false)
     @NotBlank
-    private String om;
+    private String company;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonIgnore

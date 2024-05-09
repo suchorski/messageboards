@@ -26,7 +26,7 @@ public class Global {
                         u.setName(ldapUser.get().getName());
                         u.setNickname(ldapUser.get().getNickname());
                         u.setRank(ldapUser.get().getRank());
-                        u.setOm(ldapUser.get().getOm());
+                        u.setCompany(ldapUser.get().getCompany());
                         userRepository.save(u);
                     }
                 } catch (Exception e) {

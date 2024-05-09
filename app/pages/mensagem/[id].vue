@@ -62,7 +62,7 @@ const remove = (commentInfo: { comment: TComment; removed: boolean }) => {
           <template #header>
             <header class="message">
               <h2>Aviso de {{ stateData!.author.rank }} {{ stateData!.author.nickname }}</h2>
-              <UTooltip :text="`${stateData!.author.rank} ${stateData!.author.name} do ${stateData!.author.om}`">
+              <UTooltip :text="`${stateData!.author.rank} ${stateData!.author.name} do ${stateData!.author.company}`">
                 <UBadge variant="soft">
                   <UIcon :name="useIcon().information" />
                 </UBadge>

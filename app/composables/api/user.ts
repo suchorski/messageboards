@@ -5,7 +5,7 @@ export type TUser = {
   name: string
   nickname: string
   rank: string
-  om: string
+  company: string
 }
 
 export type TUsers = ApiContent<TUser>

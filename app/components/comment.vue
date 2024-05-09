@@ -32,7 +32,7 @@ const askRemove = () => {
       <div class="title">
         <div class="name">
           <h3>Comentário de {{ comment.author.rank }} {{ comment.author.nickname }}</h3>
-          <UTooltip :text="`${comment.author.rank} ${comment.author.name} do ${comment.author.om}`">
+          <UTooltip :text="`${comment.author.rank} ${comment.author.name} do ${comment.author.company}`">
             <UBadge variant="soft">
               <UIcon :name="useIcon().information" />
             </UBadge>

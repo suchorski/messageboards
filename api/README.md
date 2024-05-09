@@ -30,7 +30,7 @@
 - `LDAP_PARAMETERS_NAME`: LDAP parameters name.
 - `LDAP_PARAMETERS_NICKNAME`: LDAP parameters nickname.
 - `LDAP_PARAMETERS_RANK`: LDAP parameters rank.
-- `LDAP_PARAMETERS_OM`: LDAP parameters OM.
+- `LDAP_PARAMETERS_COMPANY`: LDAP parameters company.
 - `LDAP_FILTERS_BASE_OU`: LDAP filters base OU.
 - `LDAP_FILTERS_USER_FILTER`: LDAP filters user filter. Usualy `(uid=%s)`
 

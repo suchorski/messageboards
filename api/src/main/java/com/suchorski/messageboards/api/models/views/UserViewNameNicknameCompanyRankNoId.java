@@ -1,6 +1,6 @@
 package com.suchorski.messageboards.api.models.views;
 
-public interface UserViewNameNicknameOmRankNoId {
+public interface UserViewNameNicknameCompanyRankNoId {
 
     String getName();
 
@@ -8,6 +8,6 @@ public interface UserViewNameNicknameOmRankNoId {
 
     String getRank();
 
-    String getOm();
+    String getCompany();
 
 }

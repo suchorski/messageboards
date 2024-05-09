@@ -14,6 +14,6 @@ public interface MessageViewAuthor {
 
     Instant getFinalizationDate();
 
-    UserViewNameNicknameOmRankNoId getAuthor();
+    UserViewNameNicknameCompanyRankNoId getAuthor();
 
 }

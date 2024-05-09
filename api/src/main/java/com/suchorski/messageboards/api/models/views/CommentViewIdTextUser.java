@@ -12,6 +12,6 @@ public interface CommentViewIdTextUser {
 
     Boolean getDeleted();
 
-    UserViewNameNicknameOmRankNoId getAuthor();
+    UserViewNameNicknameCompanyRankNoId getAuthor();
 
 }

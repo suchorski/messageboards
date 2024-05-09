@@ -4,7 +4,7 @@ public interface AllocationsViewUserTypes {
 
     Long getId();
 
-    UserViewNameNicknameOmRankNoId getUser();
+    UserViewNameNicknameCompanyRankNoId getUser();
 
     boolean getAdministrator();
 
