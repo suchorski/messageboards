@@ -34,7 +34,13 @@
         Para incluir um novo quadro de avisos, clique em 'Quadros de Avisos' e em seguida em 'Adicionar Novo Quadro'.
       </p>
       <h2>Edição de quadros de avisos</h2>
-      <p>Não é possível editar um aviso.</p>
+      <p>
+        Para editar um quadro de avisos, clique em 'Quadros de Avisos', vizualize o quadro de aviso, em seguida em
+        'Editar' e defina o novo nome do quadro de avisos.
+      </p>
+      <p class="warn">
+        Somente os administradores podem editar o nome do quadro de avisos.
+      </p>
       <h2>Exclusão de quadros de avisos</h2>
       <p>
         Para excluir um quadro de avisos, clique em 'Quadros de Avisos', vizualize o quadro de aviso e em seguida em
