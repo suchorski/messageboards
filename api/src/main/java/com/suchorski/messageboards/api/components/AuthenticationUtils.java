@@ -1,5 +1,7 @@
 package com.suchorski.messageboards.api.components;
 
+import java.time.Instant;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
@@ -32,6 +34,7 @@ public class AuthenticationUtils {
             user.setNickname(nickname);
             user.setRank(rank);
             user.setCompany(company);
+            user.setLastUpdate(Instant.now());
             return userRepository.save(user);
         } else {
             log.debug("Creating new user with CPF {}", cpf);
