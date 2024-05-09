@@ -15,11 +15,6 @@
 
 ### Production
 
-- Clone the repository
-- Install the dependencies with `pnpm install`
-- Build the project with `pnpm build`
-- Run the project with `node .output/server/index.mjs`
-
 - Clonar o repositório
 - Instalar as dependências com `yarn install`
 - Construir o projeto com `yarn build`
