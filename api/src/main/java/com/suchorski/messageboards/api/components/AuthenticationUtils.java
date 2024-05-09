@@ -25,7 +25,8 @@ public class AuthenticationUtils {
         final var rank = jwt.getClaimAsString("rank");
         final var company = jwt.getClaimAsString("company_override");
         final var optionalUser = userRepository.findByCpf(cpf);
-        if (optionalUser.isPresent()) {
+        if (optionalUser.isPresent() && optionalUser.get().isOneDayOld()) {
+            log.debug("Updating old user with CPF {}", cpf);
             final var user = optionalUser.get();
             user.setName(name);
             user.setNickname(nickname);
