@@ -21,13 +21,10 @@ public class SetCorsFilter extends OncePerRequestFilter {
     @Value("${cors.allowed-origins}")
     private String allowedOrigins;
 
-    @Value("${cors.allowed-methods}")
-    private String allowedMethods;
-
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
         response.setHeader("Access-Control-Allow-Origin", allowedOrigins);
-        response.setHeader("Access-Control-Allow-Methods", allowedMethods);
+        response.setHeader("Access-Control-Allow-Methods", "*");
         response.setHeader("Access-Control-Allow-Headers", "Cache-Control, Authorization, Content-Type");
         filterChain.doFilter(request, response);
     }
