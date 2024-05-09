@@ -24,11 +24,19 @@ public class AuthenticationUtils {
         final var nickname = jwt.getClaimAsString("nickname");
         final var rank = jwt.getClaimAsString("rank");
         final var company = jwt.getClaimAsString("company_override");
-        return userRepository.findByCpf(cpf).orElseGet(() -> {
+        final var optionalUser = userRepository.findByCpf(cpf);
+        if (optionalUser.isPresent()) {
+            final var user = optionalUser.get();
+            user.setName(name);
+            user.setNickname(nickname);
+            user.setRank(rank);
+            user.setOm(company);
+            return userRepository.save(user);
+        } else {
             log.debug("Creating new user with CPF {}", cpf);
             final var newUser = new User(cpf, name, nickname, rank, company);
             return userRepository.save(newUser);
-        });
+        }
     }
 
 }
