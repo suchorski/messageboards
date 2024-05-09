@@ -29,15 +29,18 @@ public class AuthenticationUtils {
         final var rank = jwt.getClaimAsString(keycloakProperties.getRank());
         final var company = jwt.getClaimAsString(keycloakProperties.getCompany());
         final var optionalUser = userRepository.findByCpf(cpf);
-        if (optionalUser.isPresent() && optionalUser.get().isOneDayOld()) {
-            log.debug("Updating old user with CPF {}", cpf);
-            final var user = optionalUser.get();
-            user.setName(name);
-            user.setNickname(nickname);
-            user.setRank(rank);
-            user.setCompany(company);
-            user.setLastUpdate(Instant.now());
-            return userRepository.save(user);
+        if (optionalUser.isPresent()) {
+            if (optionalUser.get().isOneDayOld()) {
+                log.debug("Updating old user with CPF {}", cpf);
+                final var user = optionalUser.get();
+                user.setName(name);
+                user.setNickname(nickname);
+                user.setRank(rank);
+                user.setCompany(company);
+                user.setLastUpdate(Instant.now());
+                return userRepository.save(user);
+            }
+            return optionalUser.get();
         } else {
             log.debug("Creating new user with CPF {}", cpf);
             final var newUser = new User(cpf, name, nickname, rank, company);
