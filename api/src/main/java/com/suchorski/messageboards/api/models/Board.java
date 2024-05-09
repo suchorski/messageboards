@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.suchorski.messageboards.api.ApiApplication;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -33,7 +34,7 @@ import lombok.Setter;
 @EqualsAndHashCode(of = "id")
 public class Board implements Serializable {
 
-    private static final long serialVersionUID = -1_000_000L;
+    private static final long serialVersionUID = ApiApplication.VERSION;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
