@@ -43,8 +43,6 @@ import lombok.Setter;
         @UniqueConstraint(name = "uq_user_cpf", columnNames = "cpf"),
 }, indexes = {
         @Index(name = "idx_user_cpf", columnList = "cpf"),
-        @Index(name = "idx_user_name", columnList = "name"),
-        @Index(name = "idx_user_company", columnList = "company"),
         @Index(name = "idx_user_lastUpdate", columnList = "last_update"),
 })
 @Builder
