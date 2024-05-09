@@ -14,4 +14,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     public Optional<User> findByCpf(String cpf);
 
+    public Optional<User> findTop1ByOrderByLastUpdateAsc();
+
 }
