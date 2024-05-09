@@ -31,3 +31,11 @@ ldap:
   filters:
     base-ou: ${LDAP_FILTERS_BASE_OU}
     user-filter: ${LDAP_FILTERS_USER_FILTER}
+
+keycloak:
+  claims:
+    cpf: ${KEYCLOAK_CLAIMS_CPF}
+    name: ${KEYCLOAK_CLAIMS_NAME}
+    nickname: ${KEYCLOAK_CLAIMS_NICKNAME}
+    rank: ${KEYCLOAK_CLAIMS_RANK}
+    company: ${KEYCLOAK_CLAIMS_COMPANY}

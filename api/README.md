@@ -33,6 +33,11 @@
 - `LDAP_PARAMETERS_COMPANY`: LDAP parameters company.
 - `LDAP_FILTERS_BASE_OU`: LDAP filters base OU.
 - `LDAP_FILTERS_USER_FILTER`: LDAP filters user filter. Usualy `(uid=%s)`
+- `KEYCLOAK_CLAIMS_CPF`: Keycloak claims of CPF.
+- `KEYCLOAK_CLAIMS_NAME`: Keycloak claim of name.
+- `KEYCLOAK_CLAIMS_NICKNAME`: Keycloak claim of nickname.
+- `KEYCLOAK_CLAIMS_RANK`: Keycloak claim of rank.
+- `KEYCLOAK_CLAIMS_COMPANY`: Keycloak claim of company.
 
 ### Keycloak roles
 

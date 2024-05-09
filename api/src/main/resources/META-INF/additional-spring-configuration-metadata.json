@@ -1,69 +1,92 @@
-{
-  "properties": [
-    {
-      "name": "cors.allowed-origins",
-      "type": "java.lang.String",
-      "description": "Allowed origins for CORS requests."
-    },
-    {
-      "name": "cors.allowed-methods",
-      "type": "java.lang.String",
-      "description": "Allowed methods for CORS requests."
-    },
-    {
-      "name": "ldap.enabled",
-      "type": "java.lang.String",
-      "description": "Define if LDAP search is enabled or not."
-    },
-    {
-      "name": "ldap.provider-url",
-      "type": "java.lang.String",
-      "description": "URL for LDAP search."
-    },
-    {
-      "name": "ldap.security-authentication",
-      "type": "java.lang.String",
-      "description": "Authentication type for LDAP search."
-    },
-    {
-      "name": "ldap.security-principal",
-      "type": "java.lang.String",
-      "description": "Principal for LDAP search."
-    },
-    {
-      "name": "ldap.security-credentials",
-      "type": "java.lang.String",
-      "description": "Credentials for LDAP search."
-    },
-    {
-      "name": "ldap.parameters.name",
-      "type": "java.lang.String",
-      "description": "Name parameter of LDAP for name on User parameter."
-    },
-    {
-      "name": "ldap.parameters.nickname",
-      "type": "java.lang.String",
-      "description": "Nickname parameter of LDAP for nickname on User parameter."
-    },
-    {
-      "name": "ldap.parameters.rank",
-      "type": "java.lang.String",
-      "description": "Rank parameter of LDAP for rank on User parameter."
-    },
-    {
-      "name": "ldap.parameters.company",
-      "type": "java.lang.String",
-      "description": "Company parameter of LDAP for company on User parameter."
-    },
-    {
-      "name": "ldap.filters.base-ou",
-      "type": "java.lang.String",
-      "description": "Base OU for LDAP user search."
-    },
-    {
-      "name": "ldap.filters.user-filter",
-      "type": "java.lang.String",
-      "description": "Filter for LDAP user search."
-    }
-  ]
-}
+{"properties": [
+  {
+    "name": "cors.allowed-origins",
+    "type": "java.lang.String",
+    "description": "Allowed origins for CORS requests."
+  },
+  {
+    "name": "cors.allowed-methods",
+    "type": "java.lang.String",
+    "description": "Allowed methods for CORS requests."
+  },
+  {
+    "name": "ldap.enabled",
+    "type": "java.lang.String",
+    "description": "Define if LDAP search is enabled or not."
+  },
+  {
+    "name": "ldap.provider-url",
+    "type": "java.lang.String",
+    "description": "URL for LDAP search."
+  },
+  {
+    "name": "ldap.security-authentication",
+    "type": "java.lang.String",
+    "description": "Authentication type for LDAP search."
+  },
+  {
+    "name": "ldap.security-principal",
+    "type": "java.lang.String",
+    "description": "Principal for LDAP search."
+  },
+  {
+    "name": "ldap.security-credentials",
+    "type": "java.lang.String",
+    "description": "Credentials for LDAP search."
+  },
+  {
+    "name": "ldap.parameters.name",
+    "type": "java.lang.String",
+    "description": "Name parameter of LDAP for name on User parameter."
+  },
+  {
+    "name": "ldap.parameters.nickname",
+    "type": "java.lang.String",
+    "description": "Nickname parameter of LDAP for nickname on User parameter."
+  },
+  {
+    "name": "ldap.parameters.rank",
+    "type": "java.lang.String",
+    "description": "Rank parameter of LDAP for rank on User parameter."
+  },
+  {
+    "name": "ldap.parameters.company",
+    "type": "java.lang.String",
+    "description": "Company parameter of LDAP for company on User parameter."
+  },
+  {
+    "name": "ldap.filters.base-ou",
+    "type": "java.lang.String",
+    "description": "Base OU for LDAP user search."
+  },
+  {
+    "name": "ldap.filters.user-filter",
+    "type": "java.lang.String",
+    "description": "Filter for LDAP user search."
+  },
+  {
+    "name": "keycloak.claims.cpf",
+    "type": "java.lang.String",
+    "description": "Keycloak claim of CPF"
+  },
+  {
+    "name": "keycloak.claims.name",
+    "type": "java.lang.String",
+    "description": "Keycloak claim of name"
+  },
+  {
+    "name": "keycloak.claims.nickname",
+    "type": "java.lang.String",
+    "description": "Keycloak claim of nickname"
+  },
+  {
+    "name": "keycloak.claims.rank",
+    "type": "java.lang.String",
+    "description": "Keycloak claim of rank"
+  },
+  {
+    "name": "keycloak.claims.company",
+    "type": "java.lang.String",
+    "description": "Keycloak claim of company"
+  }
+]}
