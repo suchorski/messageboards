@@ -1,5 +1,18 @@
 <script lang="ts" setup>
-const updates = [{ version: '1.0.0', news: ['Versão inicial de lançamento do sistema.'] }]
+const updates = [
+  {
+    version: '1.1.0',
+    news: [
+      'Adição de opção para alterar o nome do Quadro de Avisos.',
+      'Adição de opção alternativa de LDAP para atualização de dados de usuários.',
+      'Adição de um temporizador para atualização de dados de usuários.',
+      'Dados do usuário são atualizados a cada requisição.',
+      'Atualização de dependências.',
+      'Correção de bugs.',
+    ],
+  },
+  { version: '1.0.0', news: ['Versão inicial de lançamento do sistema.'] },
+]
 const items = computed(() => updates.map((u) => ({ label: `Versão: ${u.version}`, changelog: u.news })))
 </script>
 
