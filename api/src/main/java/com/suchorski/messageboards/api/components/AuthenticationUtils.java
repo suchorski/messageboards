@@ -2,44 +2,32 @@ package com.suchorski.messageboards.api.components;
 
 import java.time.Instant;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 
 import com.suchorski.messageboards.api.models.User;
+import com.suchorski.messageboards.api.properties.KeycloakProperties;
 import com.suchorski.messageboards.api.repositories.UserRepository;
 
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Component
-@NoArgsConstructor
+@AllArgsConstructor
 @Log4j2
 public class AuthenticationUtils {
 
-    @Value("${keycloak.claims.cpf}")
-    private String keycloakClaimCpf;
-    @Value("${keycloak.claims.name}")
-    private String keycloakClaimName;
-    @Value("${keycloak.claims.nickname}")
-    private String keycloakClaimNickname;
-    @Value("${keycloak.claims.rank}")
-    private String keycloakClaimRank;
-    @Value("${keycloak.claims.company}")
-    private String keycloakClaimCompany;
-
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final KeycloakProperties keycloakProperties;
 
     public User findOrCreateUser(Authentication authentication) {
         final var jwt = (Jwt) authentication.getPrincipal();
-        final var cpf = jwt.getClaimAsString(keycloakClaimCpf);
-        final var name = jwt.getClaimAsString(keycloakClaimName);
-        final var nickname = jwt.getClaimAsString(keycloakClaimNickname);
-        final var rank = jwt.getClaimAsString(keycloakClaimRank);
-        final var company = jwt.getClaimAsString(keycloakClaimCompany);
+        final var cpf = jwt.getClaimAsString(keycloakProperties.getCpf());
+        final var name = jwt.getClaimAsString(keycloakProperties.getName());
+        final var nickname = jwt.getClaimAsString(keycloakProperties.getNickname());
+        final var rank = jwt.getClaimAsString(keycloakProperties.getRank());
+        final var company = jwt.getClaimAsString(keycloakProperties.getCompany());
         final var optionalUser = userRepository.findByCpf(cpf);
         if (optionalUser.isPresent() && optionalUser.get().isOneDayOld()) {
             log.debug("Updating old user with CPF {}", cpf);
