@@ -106,7 +106,7 @@ const deadlineDays = computed(() => differenceInDays(props.message.deadline!, Da
               </UBadge>
             </UTooltip>
           </div>
-          <p class="thin">Última atualização: {{ toDateTime(message.lastupdateDate) }}</p>
+          <p class="thin">Última atualização: {{ toDateTime(message.lastUpdateDate) }}</p>
           <p class="thin">Desde: {{ toDateTime(message.creationDate) }}</p>
           <div class="deadline">
             <Transition name="fade" mode="out-in">

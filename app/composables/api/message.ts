@@ -12,7 +12,7 @@ export type TMessage = {
   id?: number
   text: string
   creationDate: Date
-  lastupdateDate: Date
+  lastUpdateDate: Date
   finalizationDate: Date
   deadline: Date | null
   author: TUser
@@ -54,7 +54,7 @@ export const useMessageApi = () => {
     useApi<void>(`/messages/${message.id}`, { key: `messages:delete:${message.id}`, method: 'delete' })
 
   const sorter = (left: TMessage, right: TMessage) =>
-    new Date(left.lastupdateDate).getTime() - new Date(right.lastupdateDate).getTime()
+    new Date(left.lastUpdateDate).getTime() - new Date(right.lastUpdateDate).getTime()
 
   return { add, get, listByBoardId, updateDeadline, finalize, remove, sorter }
 }
