@@ -147,7 +147,7 @@ const deadlineDays = computed(() => differenceInDays(props.message.deadline!, Da
                 <p v-if="deadlineDays >= 0">Prazo para</p>
                 <p v-else>Vencido há</p>
                 <p class="days">{{ Math.abs(deadlineDays) }}</p>
-                <p>Dias</p>
+                <p>{{ Math.abs(deadlineDays) === 1 ? 'Dia' : 'Dias' }}</p>
               </div>
               <div v-else key="finalized" class="deadline-bagde">
                 <p>Finalizado</p>
