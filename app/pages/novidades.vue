@@ -1,6 +1,19 @@
 <script lang="ts" setup>
 const updates = [
   {
+    version: '1.2.0',
+    news: [
+      'Melhoria na performance do sistema.',
+      'Usuários são atualizados somente após ter 1 dia de desatualização.',
+      'Mudança na forma de atualização de novos usuários.',
+      'Fixado mensagem de erro remover mensagem com comentários.',
+      'Atualização de dependências.',
+      'Correção de bugs.',
+      'Adição de prazo para a mensagens.',
+      'Adição de opção para ordenar mensagens por data de criação, última atualização e prazo.',
+    ],
+  },
+  {
     version: '1.1.0',
     news: [
       'Adição de opção para alterar o nome do Quadro de Avisos.',
