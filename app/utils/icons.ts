@@ -14,6 +14,7 @@ export const useIcon = () => {
   const pencil = 'i-heroicons-pencil'
   const ok = 'i-heroicons-hand-thumb-up'
   const chat = 'i-heroicons-chat-bubble-left-right'
+  const calendar = 'i-heroicons-calendar-days'
 
   return {
     logout,
@@ -31,5 +32,6 @@ export const useIcon = () => {
     pencil,
     ok,
     chat,
+    calendar,
   }
 }

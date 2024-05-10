@@ -1,6 +1,7 @@
 package com.suchorski.messageboards.api.models.views;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 public interface MessageViewAuthor {
 
@@ -13,6 +14,8 @@ public interface MessageViewAuthor {
     Instant getLastUpdateDate();
 
     Instant getFinalizationDate();
+
+    LocalDate getDeadline();
 
     UserViewNameNicknameCompanyRankNoId getAuthor();
 

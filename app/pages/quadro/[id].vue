@@ -7,24 +7,32 @@ const { success, warning } = useToaster()
 
 const { listByBoardId, sorter } = useMessageApi()
 
+const { toDate } = useDate()
+
 const boardId: number = Number(useRoute().params.id)
 const board = computed(() => boards.value.find((b) => b.id === boardId))
 
 const accordion = [{ label: 'Adicionar Novo Aviso', icon: useIcon().add }]
 const editor = ref<string>('')
+const deadlineEnabled = ref<boolean>(false)
+const deadline = ref<Date>(new Date())
 
 const { data: stateData, pending: statePending, error: stateError } = listByBoardId(boardId)
 watch(stateData, (newValue, oldValue) => {
   if (newValue && newValue !== oldValue && stateError.value === null) {
     stateData.value?.sort(sorter)
   }
-})  
+})
 
 const askAdd = () => {
   const { confirm } = useModals()
   confirm('Adicionar Novo Aviso', 'Deseja realmente adicionar um novo Aviso?', async () => {
     const { add } = useMessageApi()
-    const { data, error } = await add({ text: editor.value, board: { id: boardId } })
+    const { data, error } = await add({
+      text: editor.value,
+      deadline: deadlineEnabled.value ? deadline.value : null,
+      board: { id: boardId },
+    })
     if (error.value) {
       warning('Erro ao adicionar o Aviso.', error.value?.data.message)
     } else {
@@ -63,6 +71,24 @@ const remove = (message: TMessage) => {
       <template #item>
         <div class="add">
           <Editor v-model="editor" />
+          <div class="deadline">
+            <div class="enabled">
+              <h3>Definir uma data de prazo?</h3>
+              <UToggle color="primary" v-model="deadlineEnabled" />
+            </div>
+            <div class="flex-">&nbsp;</div>
+            <Transition name="fade" mode="out-in">
+              <div class="datepicker" v-if="deadlineEnabled" key="deadline">
+                <h3>Prazo:</h3>
+                <UPopover :popper="{ placement: 'bottom-end' }">
+                  <UButton :icon="useIcon().calendar" :label="toDate(deadline)" class="px-16" />
+                  <template #panel="{ close }">
+                    <DatePicker v-model="deadline" @close="close" />
+                  </template>
+                </UPopover>
+              </div>
+            </Transition>
+          </div>
           <UButton @click="askAdd" block :disabled="editor.trim().length === 0">Salvar</UButton>
         </div>
       </template>
@@ -101,5 +127,13 @@ section.data {
 
 div.add {
   @apply flex flex-col space-y-2;
+}
+
+div.add > div.deadline {
+  @apply h-8 flex flex-row justify-between items-center space-x-2;
+}
+
+div.add > div.deadline > div {
+  @apply flex flex-row items-center space-x-2;
 }
 </style>

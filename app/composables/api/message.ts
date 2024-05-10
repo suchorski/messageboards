@@ -4,6 +4,7 @@ import type { TUser } from './user'
 
 export type TMessageDTO = {
   text: string
+  deadline: Date | null
   board: { id: number }
 }
 
@@ -13,6 +14,7 @@ export type TMessage = {
   creationDate: Date
   lastupdateDate: Date
   finalizationDate: Date
+  deadline: Date | null
   author: TUser
 }
 
@@ -22,6 +24,7 @@ export type TMessageComments = {
   creationDate: Date
   lastupdateDate: Date
   finalizationDate: Date
+  deadline: Date | null
   author: TUser
   comments: TComment[]
 }
@@ -37,6 +40,13 @@ export const useMessageApi = () => {
   const listByBoardId = (id: number) =>
     useApi<TMessage[]>(`/messages/byBoardId/${id}`, { key: `messages:list:${id}`, method: 'get' })
 
+  const updateDeadline = (message: TMessage, deadline?: Date) =>
+    useApi<void>(`/messages/${message.id}/deadline`, {
+      key: `messages:updateDeadline:${message.id}`,
+      method: 'put',
+      body: { deadline },
+    })
+
   const finalize = (message: TMessage) =>
     useApi<TMessage>(`/messages/${message.id}`, { key: `messages:finalize:${message.id}`, method: 'put' })
 
@@ -46,5 +56,5 @@ export const useMessageApi = () => {
   const sorter = (left: TMessage, right: TMessage) =>
     new Date(left.lastupdateDate).getTime() - new Date(right.lastupdateDate).getTime()
 
-  return { add, get, listByBoardId, finalize, remove, sorter }
+  return { add, get, listByBoardId, updateDeadline, finalize, remove, sorter }
 }

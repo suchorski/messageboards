@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.suchorski.messageboards.api.components.AuthenticationUtils;
+import com.suchorski.messageboards.api.dtos.DeadlineDTO;
 import com.suchorski.messageboards.api.dtos.MessageDTO;
 import com.suchorski.messageboards.api.models.Message;
 import com.suchorski.messageboards.api.repositories.AllocationRepository;
@@ -48,6 +49,7 @@ public class MessageController {
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                 BoardRepository.USER_NOT_ALLOCATED));
         final var message = new Message(newMessage.getText(), board, user);
+        message.setDeadline(newMessage.getDeadline());
         return ResponseEntity.ok(messageRepository.save(message));
     }
 
@@ -77,6 +79,29 @@ public class MessageController {
                         id, user));
     }
 
+    @PutMapping("/{id}/deadline")
+    @ResponseBody
+    public ResponseEntity<?> updateDeadline(@PathVariable Long id, @Valid @RequestBody DeadlineDTO deadlineDTO,
+            Authentication authentication) {
+        log.debug("Updateing deadline message...");
+        final var user = authenticationUtils.findOrCreateUser(authentication);
+        final var message = messageRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                MessageRepository.MESSAGE_NOT_FOUND));
+        if (!message.getAuthor().equals(user)) {
+            message.getBoard().getAllocations().stream()
+                    .filter(a -> a.getUser().equals(user) && a.getAdministrator())
+                    .findAny()
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT,
+                            AllocationRepository.USER_NOT_ALLOCATED_AS_ADMINISTRATOR));
+        }
+        message.setDeadline(deadlineDTO.getDeadline());
+        messageRepository.save(message);
+        return ResponseEntity.noContent().build();
+    }
+
     @PutMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> finalize(@PathVariable Long id, Authentication authentication) {
@@ -97,7 +122,6 @@ public class MessageController {
         message.setFinalizationDate(Instant.now());
         messageRepository.save(message);
         return ResponseEntity.noContent().build();
-
     }
 
     @DeleteMapping("/{id}")
