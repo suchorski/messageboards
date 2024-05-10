@@ -43,6 +43,8 @@ public class Handlers {
                     return "Alocação do usuário já existe. Favor realizar a alteração.";
                 case "fk_message_board":
                     return "Não é possível excluir quadros de avisos com mensagens.";
+                case "fk_comment_message":
+                    return "Não é possível excluir mensagens com comentários.";
                 default:
                     return "Erro desconhecido. Favor contatar o suporte.";
             }
