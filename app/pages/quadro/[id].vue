@@ -5,7 +5,15 @@ const { boards } = storeToRefs(useBoardStore())
 
 const { success, warning } = useToaster()
 
-const { listByBoardId, sorter } = useMessageApi()
+const {
+  listByBoardId,
+  sorter,
+  sorterDesc,
+  creationDateSorter,
+  creationDateSorterDesc,
+  deadlineDateSorter,
+  deadlineDateSorterDesc,
+} = useMessageApi()
 
 const { toDate } = useDate()
 
@@ -62,6 +70,20 @@ const remove = (message: TMessage) => {
     warning('Aviso não encontrado.')
   }
 }
+
+const asc = ref<boolean>(true)
+const sortByLastUpdate = () => {
+  asc.value = !asc.value
+  stateData.value?.sort(asc.value ? sorter : sorterDesc)
+}
+const sortByCreationDate = () => {
+  asc.value = !asc.value
+  stateData.value?.sort(asc.value ? creationDateSorter : creationDateSorterDesc)
+}
+const sortByDeadline = () => {
+  asc.value = !asc.value
+  stateData.value?.sort(asc.value ? deadlineDateSorter : deadlineDateSorterDesc)
+}
 </script>
 
 <template>
@@ -93,6 +115,20 @@ const remove = (message: TMessage) => {
         </div>
       </template>
     </UAccordion>
+    <div class="sorter">
+      <h2>Ordenar por:</h2>
+      <UButtonGroup class="buttons">
+        <UButton :icon="asc ? useIcon().down : useIcon().up" :disabled="statePending" block @click="sortByLastUpdate"
+          >Última Atualização</UButton
+        >
+        <UButton :icon="asc ? useIcon().down : useIcon().up" :disabled="statePending" block @click="sortByCreationDate"
+          >Data de Criação</UButton
+        >
+        <UButton :icon="asc ? useIcon().down : useIcon().up" :disabled="statePending" block @click="sortByDeadline"
+          >Prazo</UButton
+        >
+      </UButtonGroup>
+    </div>
     <Transition name="fade" mode="out-in">
       <section v-if="statePending" key="loading" class="loading">
         <SkeletonMessage v-for="i in 4" :key="i" />
@@ -135,5 +171,17 @@ div.add > div.deadline {
 
 div.add > div.deadline > div {
   @apply flex flex-row items-center space-x-2;
+}
+
+div.sorter {
+  @apply pt-1 pb-3 flex flex-col space-y-2;
+}
+
+div.sorter > .buttons {
+  @apply flex flex-row;
+}
+
+div.sorter > .buttons > button {
+  @apply flex-1;
 }
 </style>

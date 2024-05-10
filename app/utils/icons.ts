@@ -15,6 +15,8 @@ export const useIcon = () => {
   const ok = 'i-heroicons-hand-thumb-up'
   const chat = 'i-heroicons-chat-bubble-left-right'
   const calendar = 'i-heroicons-calendar-days'
+  const up = 'i-heroicons-arrow-up'
+  const down = 'i-heroicons-arrow-down'
 
   return {
     logout,
@@ -33,5 +35,7 @@ export const useIcon = () => {
     ok,
     chat,
     calendar,
+    up,
+    down,
   }
 }

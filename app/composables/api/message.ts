@@ -56,5 +56,40 @@ export const useMessageApi = () => {
   const sorter = (left: TMessage, right: TMessage) =>
     new Date(left.lastUpdateDate).getTime() - new Date(right.lastUpdateDate).getTime()
 
-  return { add, get, listByBoardId, updateDeadline, finalize, remove, sorter }
+  const sorterDesc = (left: TMessage, right: TMessage) =>
+    new Date(right.lastUpdateDate).getTime() - new Date(left.lastUpdateDate).getTime()
+
+  const creationDateSorter = (left: TMessage, right: TMessage) =>
+    new Date(left.creationDate).getTime() - new Date(right.creationDate).getTime()
+
+  const creationDateSorterDesc = (left: TMessage, right: TMessage) =>
+    new Date(right.creationDate).getTime() - new Date(left.creationDate).getTime()
+
+  const deadlineDateSorter = (left: TMessage, right: TMessage) => {
+    if (left.deadline === right.deadline) return 0
+    if (left.deadline === null) return 1
+    if (right.deadline === null) return -1
+    return new Date(left.deadline).getTime() - new Date(right.deadline).getTime()
+  }
+  const deadlineDateSorterDesc = (left: TMessage, right: TMessage) => {
+    if (left.deadline === right.deadline) return 0
+    if (left.deadline === null) return -1
+    if (right.deadline === null) return 1
+    return new Date(right.deadline).getTime() - new Date(left.deadline).getTime()
+  }
+
+  return {
+    add,
+    get,
+    listByBoardId,
+    updateDeadline,
+    finalize,
+    remove,
+    sorter,
+    sorterDesc,
+    creationDateSorter,
+    creationDateSorterDesc,
+    deadlineDateSorter,
+    deadlineDateSorterDesc,
+  }
 }
