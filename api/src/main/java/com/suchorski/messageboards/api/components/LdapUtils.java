@@ -12,41 +12,24 @@ import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.suchorski.messageboards.api.models.User;
+import com.suchorski.messageboards.api.properties.LdapProperties;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 @Component
 public class LdapUtils {
 
-    @Value("${ldap.enabled}")
-    private boolean ldapEnabled;
-    @Value("${ldap.provider-url}")
-    private String providerUrl;
-    @Value("${ldap.security-authentication}")
-    private String securityAuthentication;
-    @Value("${ldap.security-principal}")
-    private String securityPrincipal;
-    @Value("${ldap.security-credentials}")
-    private String securityCredentials;
-    @Value("${ldap.parameters.name}")
-    private String ldapParameterName;
-    @Value("${ldap.parameters.nickname}")
-    private String ldapParameterNickname;
-    @Value("${ldap.parameters.rank}")
-    private String ldapParameterRank;
-    @Value("${ldap.parameters.company}")
-    private String ldapParameterCompany;
-    @Value("${ldap.filters.base-ou}")
-    private String ldapFilterBaseOu;
-    @Value("${ldap.filters.user-filter}")
-    private String ldapFilterUserFilter;
+    @NonNull
+    private final LdapProperties ldapProperties;
 
     private boolean running = false;
     private LdapContext ldapContext;
@@ -54,13 +37,13 @@ public class LdapUtils {
     @PostConstruct
     public void construct() {
         try {
-            if (ldapEnabled) {
+            if (ldapProperties.getEnabled()) {
                 final var env = new Hashtable<String, String>();
                 env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-                env.put(Context.PROVIDER_URL, providerUrl);
-                env.put(Context.SECURITY_AUTHENTICATION, securityAuthentication);
-                env.put(Context.SECURITY_PRINCIPAL, securityPrincipal);
-                env.put(Context.SECURITY_CREDENTIALS, securityCredentials);
+                env.put(Context.PROVIDER_URL, ldapProperties.getProviderUrl());
+                env.put(Context.SECURITY_AUTHENTICATION, ldapProperties.getSecurityAuthentication());
+                env.put(Context.SECURITY_PRINCIPAL, ldapProperties.getSecurityPrincipal());
+                env.put(Context.SECURITY_CREDENTIALS, ldapProperties.getSecurityCredentials());
                 ldapContext = new InitialLdapContext(env, null);
                 running = true;
             }
@@ -87,10 +70,14 @@ public class LdapUtils {
         if (running) {
             SearchControls searchControls = new SearchControls();
             searchControls.setReturningAttributes(
-                    new String[] { ldapParameterName, ldapParameterNickname, ldapParameterCompany, ldapParameterRank });
+                    new String[] {
+                            ldapProperties.getParameters().getName(),
+                            ldapProperties.getParameters().getNickname(),
+                            ldapProperties.getParameters().getRank(),
+                            ldapProperties.getParameters().getCompany() });
             searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-            NamingEnumeration<SearchResult> naming = ldapContext.search(ldapFilterBaseOu,
-                    String.format(ldapFilterUserFilter, cpf),
+            NamingEnumeration<SearchResult> naming = ldapContext.search(ldapProperties.getFilters().getBaseOu(),
+                    String.format(ldapProperties.getFilters().getUserFilter(), cpf),
                     searchControls);
             if (naming.hasMoreElements()) {
                 SearchResult result = (SearchResult) naming.next();
@@ -98,10 +85,10 @@ public class LdapUtils {
                 return Optional.of(
                         User.builder()
                                 .cpf(cpf)
-                                .name(attrs.get(ldapParameterName).get().toString())
-                                .nickname(attrs.get(ldapParameterNickname).get().toString())
-                                .company(attrs.get(ldapParameterCompany).get().toString())
-                                .rank(attrs.get(ldapParameterRank).get().toString())
+                                .name(attrs.get(ldapProperties.getParameters().getName()).get().toString())
+                                .nickname(attrs.get(ldapProperties.getParameters().getNickname()).get().toString())
+                                .company(attrs.get(ldapProperties.getParameters().getCompany()).get().toString())
+                                .rank(attrs.get(ldapProperties.getParameters().getRank()).get().toString())
                                 .build());
             }
         }
