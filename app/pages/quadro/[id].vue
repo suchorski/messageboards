@@ -72,16 +72,20 @@ const remove = (message: TMessage) => {
 }
 
 const asc = ref<boolean>(true)
+const selected = ref<'lastUpdate' | 'creationDate' | 'deadline'>('lastUpdate')
 const sortByLastUpdate = () => {
   asc.value = !asc.value
+  selected.value = 'lastUpdate'
   stateData.value?.sort(asc.value ? sorter : sorterDesc)
 }
 const sortByCreationDate = () => {
   asc.value = !asc.value
+  selected.value = 'creationDate'
   stateData.value?.sort(asc.value ? creationDateSorter : creationDateSorterDesc)
 }
 const sortByDeadline = () => {
   asc.value = !asc.value
+  selected.value = 'deadline'
   stateData.value?.sort(asc.value ? deadlineDateSorter : deadlineDateSorterDesc)
 }
 </script>
@@ -118,15 +122,36 @@ const sortByDeadline = () => {
     <div class="sorter">
       <h2>Ordenar por:</h2>
       <UButtonGroup class="buttons">
-        <UButton :icon="asc ? useIcon().down : useIcon().up" :disabled="statePending" block @click="sortByLastUpdate"
-          >Última Atualização</UButton
-        >
-        <UButton :icon="asc ? useIcon().down : useIcon().up" :disabled="statePending" block @click="sortByCreationDate"
-          >Data de Criação</UButton
-        >
-        <UButton :icon="asc ? useIcon().down : useIcon().up" :disabled="statePending" block @click="sortByDeadline"
-          >Prazo</UButton
-        >
+        <UButton :disabled="statePending" block @click="sortByLastUpdate">
+          <template #trailing>
+            <Transition name="rotate" mode="out-in">
+              <UIcon v-if="selected !== 'lastUpdate'" key="none" :name="useIcon().right" />
+              <UIcon v-else-if="asc" key="asc" :name="useIcon().down" />
+              <UIcon v-else key="desc" :name="useIcon().up" />
+            </Transition>
+          </template>
+          Última Atualização
+        </UButton>
+        <UButton :disabled="statePending" block @click="sortByCreationDate">
+          <template #trailing>
+            <Transition name="rotate" mode="out-in">
+              <UIcon v-if="selected !== 'creationDate'" key="none" :name="useIcon().right" />
+              <UIcon v-else-if="asc" key="asc" :name="useIcon().down" />
+              <UIcon v-else key="desc" :name="useIcon().up" />
+            </Transition>
+          </template>
+          Data de Criação
+        </UButton>
+        <UButton :disabled="statePending" block @click="sortByDeadline">
+          <template #trailing>
+            <Transition name="rotate" mode="out-in">
+              <UIcon v-if="selected !== 'deadline'" key="none" :name="useIcon().right" />
+              <UIcon v-else-if="asc" key="asc" :name="useIcon().down" />
+              <UIcon v-else key="desc" :name="useIcon().up" />
+            </Transition>
+          </template>
+          Prazo
+        </UButton>
       </UButtonGroup>
     </div>
     <Transition name="fade" mode="out-in">
@@ -183,5 +208,9 @@ div.sorter > .buttons {
 
 div.sorter > .buttons > button {
   @apply flex-1;
+}
+
+button > span {
+  @apply size-4;
 }
 </style>

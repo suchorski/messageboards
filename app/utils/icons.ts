@@ -17,6 +17,7 @@ export const useIcon = () => {
   const calendar = 'i-heroicons-calendar-days'
   const up = 'i-heroicons-arrow-up'
   const down = 'i-heroicons-arrow-down'
+  const right = 'i-heroicons-arrow-right'
 
   return {
     logout,
@@ -37,5 +38,6 @@ export const useIcon = () => {
     calendar,
     up,
     down,
+    right,
   }
 }

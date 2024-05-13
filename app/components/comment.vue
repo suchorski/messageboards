@@ -74,14 +74,4 @@ span.datetime {
 p {
   @apply pt-4;
 }
-
-.rotate-enter-active,
-.rotate-leave-active {
-  transition: all 0.2s;
-}
-.rotate-enter-from,
-.rotate-leave-to {
-  opacity: 0;
-  transform: rotate(180deg);
-}
 </style>
