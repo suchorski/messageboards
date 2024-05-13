@@ -2,7 +2,7 @@
 const updates = [
   {
     version: '1.2.1',
-    news: ['Corrigido texto para o singular quando o prazo era 1 dia.'],
+    news: ['Corrigido texto para o singular quando o prazo era 1 dia.', 'Atualização de dependências.'],
   },
   {
     version: '1.2.0',
