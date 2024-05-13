@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 const updates = [
   {
+    version: '1.2.3',
+    news: ['Adicionado indicador de progressão de carregamento.'],
+  },
+  {
     version: '1.2.2',
     news: ['Adicionado efeito na barra de ordenação de avisos.'],
   },
