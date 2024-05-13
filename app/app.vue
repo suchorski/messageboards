@@ -3,6 +3,7 @@ useHead({ title: 'Sistema de Quadros de Avisos' })
 </script>
 
 <template>
+  <NuxtLoadingIndicator />
   <NuxtLayout>
     <NuxtPage />
     <UModals />
