@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 const updates = [
   {
+    version: '1.2.2',
+    news: ['Adicionado efeito na barra de ordenação de avisos.'],
+  },
+  {
     version: '1.2.1',
     news: ['Corrigido texto para o singular quando o prazo era 1 dia.', 'Atualização de dependências.'],
   },
