@@ -21,9 +21,8 @@ const boardId: number = Number(useRoute().params.id)
 const board = computed(() => boards.value.find((b) => b.id === boardId))
 
 const accordion = [{ label: 'Adicionar Novo Aviso', icon: useIcon().add }]
-const editor = ref<string>('')
-const deadlineEnabled = ref<boolean>(false)
-const deadline = ref<Date>(new Date())
+
+const { text, deadlined, deadline } = storeToRefs(useMessageStore())
 
 const { data: stateData, pending: statePending, error: stateError } = listByBoardId(boardId)
 watch(stateData, (newValue, oldValue) => {
@@ -37,8 +36,8 @@ const askAdd = () => {
   confirm('Adicionar Novo Aviso', 'Deseja realmente adicionar um novo Aviso?', async () => {
     const { add } = useMessageApi()
     const { data, error } = await add({
-      text: editor.value,
-      deadline: deadlineEnabled.value ? deadline.value : null,
+      text: text.value,
+      deadline: deadlined.value ? deadline.value : null,
       board: { id: boardId },
     })
     if (error.value) {
@@ -46,7 +45,7 @@ const askAdd = () => {
     } else {
       success('Aviso adicionado com sucesso.')
       stateData.value?.unshift(data.value!)
-      editor.value = ''
+      text.value = ''
     }
   })
 }
@@ -88,6 +87,12 @@ const sortByDeadline = () => {
   selected.value = 'deadline'
   stateData.value?.sort(asc.value ? deadlineDateSorter : deadlineDateSorterDesc)
 }
+
+const clearMessage = () => {
+  text.value = ''
+  deadlined.value = false
+  deadline.value = new Date()
+}
 </script>
 
 <template>
@@ -96,15 +101,16 @@ const sortByDeadline = () => {
     <UAccordion :items="accordion">
       <template #item>
         <div class="add">
-          <Editor v-model="editor" />
+          <Editor v-model="text" />
           <div class="deadline">
             <div class="enabled">
+              <UButton label="Limpar Aviso" color="red" @click="clearMessage" />
               <h3>Definir uma data de prazo?</h3>
-              <UToggle color="primary" v-model="deadlineEnabled" />
+              <UToggle color="primary" v-model="deadlined" />
             </div>
             <div class="flex-">&nbsp;</div>
             <Transition name="fade" mode="out-in">
-              <div class="datepicker" v-if="deadlineEnabled" key="deadline">
+              <div class="datepicker" v-if="deadlined" key="deadline">
                 <h3>Prazo:</h3>
                 <UPopover :popper="{ placement: 'bottom-end' }">
                   <UButton :icon="useIcon().calendar" :label="toDate(deadline)" class="px-16" />
@@ -115,7 +121,7 @@ const sortByDeadline = () => {
               </div>
             </Transition>
           </div>
-          <UButton @click="askAdd" block :disabled="editor.trim().length === 0">Salvar</UButton>
+          <UButton @click="askAdd" block :disabled="text.trim().length === 0">Salvar</UButton>
         </div>
       </template>
     </UAccordion>
