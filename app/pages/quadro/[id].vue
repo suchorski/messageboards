@@ -28,7 +28,7 @@ const deadline = ref<Date>(new Date())
 const { data: stateData, pending: statePending, error: stateError } = listByBoardId(boardId)
 watch(stateData, (newValue, oldValue) => {
   if (newValue && newValue !== oldValue && stateError.value === null) {
-    stateData.value?.sort(sorter)
+    stateData.value?.sort(deadlineDateSorter)
   }
 })
 
@@ -72,7 +72,7 @@ const remove = (message: TMessage) => {
 }
 
 const asc = ref<boolean>(true)
-const selected = ref<'lastUpdate' | 'creationDate' | 'deadline'>('lastUpdate')
+const selected = ref<'lastUpdate' | 'creationDate' | 'deadline'>('deadline')
 const sortByLastUpdate = () => {
   asc.value = !asc.value
   selected.value = 'lastUpdate'
