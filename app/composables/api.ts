@@ -52,7 +52,6 @@ export const useApi = <T>(url: string, opts: FetchOptions, watch?: false) => {
       if (response.status === 401) {
         fine('onResponse called: 401', response)
         useAuthStore().logout()
-        // FIXME: redirect to login page
         useRouter().push('/')
       } else if (response.status === 403) {
         fine('onResponse called: 403', response)
