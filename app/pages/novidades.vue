@@ -1,6 +1,14 @@
 <script lang="ts" setup>
 const updates = [
   {
+    version: '1.3.0',
+    news: [
+      'A mensagem é salva em rascunho até ser enviada.',
+      'Ordenção padrão das mensagens alterada para o prazo mais curto.',
+      'Atualização de dependências.',
+    ],
+  },
+  {
     version: '1.2.3',
     news: ['Adicionado indicador de progressão de carregamento.'],
   },
