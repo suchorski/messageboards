@@ -2,7 +2,7 @@
 const updates = [
   {
     version: '1.4.1',
-    news: ['Corrigido erro na tela de comentários.'],
+    news: ['Corrigido erro na tela de comentários.', 'Adicionado informação de prazo na tela de comentários'],
   },
   {
     version: '1.4.0',
