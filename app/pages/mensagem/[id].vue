@@ -5,7 +5,7 @@ const { get } = useMessageApi()
 const { sorter } = useCommentApi()
 
 const { success, warning } = useToaster()
-const { toDateTime } = useDate()
+const { toDateTimeString } = useDate()
 
 const boardId: number = Number(useRoute().params.id)
 const { data: stateData, pending: statePending, error: stateError } = get(boardId)
@@ -68,8 +68,8 @@ const remove = (commentInfo: { comment: TComment; removed: boolean }) => {
                 </UBadge>
               </UTooltip>
             </header>
-            <p class="header">Última atualização: {{ toDateTime(stateData!.lastupdateDate) }}</p>
-            <p class="header">Desde: {{ toDateTime(stateData!.creationDate) }}</p>
+            <p class="header">Última atualização: {{ toDateTimeString(stateData!.lastupdateDate) }}</p>
+            <p class="header">Desde: {{ toDateTimeString(stateData!.creationDate) }}</p>
           </template>
           <Viewer v-model="stateData!.text" />
           <template #footer>
