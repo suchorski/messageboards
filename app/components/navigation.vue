@@ -18,7 +18,6 @@ const allocations = computed(() => [
           <p>Avisos</p>
           <template #item="{ item }">
             <span class="item-label">{{ item.label }}</span>
-            <UIcon :name="item.icon" class="item-icon" />
           </template>
         </UDropdown>
         <UDropdown v-else :items="[[{ label: 'Você não possui alocações.' }]]" :popper="{ placement: 'bottom-start' }">
