@@ -3,7 +3,7 @@ import type { TComment } from '~/composables/api/comment'
 
 const { danger } = useToaster()
 const { show, hide } = useLoading()
-const { toDateTime } = useDate()
+const { toDateTimeString } = useDate()
 
 const props = withDefaults(defineProps<{ comment: TComment; last: boolean }>(), { last: false })
 const emit = defineEmits<{
@@ -38,7 +38,7 @@ const askRemove = () => {
             </UBadge>
           </UTooltip>
         </div>
-        <span class="datetime">{{ toDateTime(comment.creationDate) }}</span>
+        <span class="datetime">{{ toDateTimeString(comment.creationDate) }}</span>
       </div>
       <Transition name="rotate" mode="out-in">
         <UTooltip text="Excluir Comentário" v-if="last">

@@ -68,7 +68,7 @@ const remove = (commentInfo: { comment: TComment; removed: boolean }) => {
                 </UBadge>
               </UTooltip>
             </header>
-            <p class="header">Última atualização: {{ toDateTimeString(stateData!.lastupdateDate) }}</p>
+            <p class="header">Última atualização: {{ toDateTimeString(stateData!.lastUpdateDate) }}</p>
             <p class="header">Desde: {{ toDateTimeString(stateData!.creationDate) }}</p>
           </template>
           <Viewer v-model="stateData!.text" />

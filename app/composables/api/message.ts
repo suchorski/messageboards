@@ -22,7 +22,7 @@ export type TMessageComments = {
   id?: number
   text: string
   creationDate: string
-  lastupdateDate: string
+  lastUpdateDate: string
   finalizationDate: string | null
   deadline: string | null
   author: TUser
