@@ -16,7 +16,7 @@ const {
   deadlineDateSorterDesc,
 } = useMessageApi()
 
-const { toDate } = useDate()
+const { toDateString } = useDate()
 
 const boardId: number = Number(useRoute().params.id)
 const board = computed(() => boards.value.find((b) => b.id === boardId))
@@ -95,7 +95,10 @@ const clearMessage = () => {
   deadline.value = new Date()
 }
 
-onMounted(() => (deadline.value = new Date()))
+onMounted(() => {
+  deadline.value = new Date()
+  deadline.value.setHours(16, 0, 0, 0)
+})
 </script>
 
 <template>
@@ -116,7 +119,7 @@ onMounted(() => (deadline.value = new Date()))
               <div class="datepicker" v-if="deadlined" key="deadline">
                 <h3>Prazo:</h3>
                 <UPopover :popper="{ placement: 'bottom-end' }">
-                  <UButton :icon="useIcon().calendar" :label="toDate(deadline)" class="px-16" />
+                  <UButton :icon="useIcon().calendar" :label="toDateString(deadline)" class="px-16" />
                   <template #panel="{ close }">
                     <DatePicker v-model="deadline" @close="close" />
                   </template>

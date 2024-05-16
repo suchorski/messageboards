@@ -1,7 +1,7 @@
 package com.suchorski.messageboards.api.models.views;
 
 import java.time.Instant;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MessageViewIdComments {
@@ -16,7 +16,7 @@ public interface MessageViewIdComments {
 
     Instant getFinalizationDate();
 
-    LocalDate getDeadline();
+    LocalDateTime getDeadline();
 
     List<CommentViewIdTextUser> getComments();
 

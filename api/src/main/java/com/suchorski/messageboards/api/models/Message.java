@@ -2,7 +2,7 @@ package com.suchorski.messageboards.api.models;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -73,7 +73,7 @@ public class Message implements Serializable {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant finalizationDate;
 
-    private LocalDate deadline;
+    private LocalDateTime deadline;
 
     @OneToMany(mappedBy = "message", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
             CascadeType.REFRESH })

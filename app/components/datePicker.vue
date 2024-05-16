@@ -30,7 +30,14 @@ const attrs = {
 </script>
 
 <template>
-  <VCalendarDatePicker v-model="date" v-bind="{ ...attrs, ...$attrs }" />
+  <VCalendarDatePicker
+    v-model="date"
+    v-bind="{ ...attrs, ...$attrs }"
+    mode="dateTime"
+    hide-time-header
+    is24hr
+    :rules="{ minutes: { interval: 5 } }"
+  />
 </template>
 
 <style>

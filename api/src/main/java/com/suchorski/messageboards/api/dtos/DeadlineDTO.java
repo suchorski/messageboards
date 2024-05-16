@@ -1,6 +1,6 @@
 package com.suchorski.messageboards.api.dtos;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
@@ -15,6 +15,6 @@ import lombok.Setter;
 public class DeadlineDTO {
 
     @Nullable
-    public LocalDate deadline;
+    public LocalDateTime deadline;
 
 }

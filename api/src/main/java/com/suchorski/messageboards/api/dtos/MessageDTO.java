@@ -1,6 +1,6 @@
 package com.suchorski.messageboards.api.dtos;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
@@ -20,7 +20,7 @@ public class MessageDTO {
     public String text;
 
     @Nullable
-    public LocalDate deadline;
+    public LocalDateTime deadline;
 
     @NotNull
     public IdDTO board;

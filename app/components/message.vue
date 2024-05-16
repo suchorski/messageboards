@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { TMessage } from '~/composables/api/message'
-import { isBefore, differenceInDays } from 'date-fns'
 
 const props = defineProps<{ message: TMessage }>()
 const emit = defineEmits<{
@@ -10,9 +9,9 @@ const emit = defineEmits<{
 
 const { danger } = useToaster()
 const { show, hide } = useLoading()
-const { toDateTime, toDate } = useDate()
+const { toDateTimeString, toDaysOrHours } = useDate()
 
-const deadline = ref<Date>(new Date(props.message.deadline ?? Date.now()))
+const deadline = ref<Date>(new Date(props.message.deadline ?? new Date(new Date().setHours(16, 0, 0, 0))))
 watch(deadline, async (newValue, oldValue) => {
   if (newValue !== oldValue) {
     const { updateDeadline } = useMessageApi()
@@ -77,20 +76,23 @@ const toComments = (id: number) => {
   push(`/mensagem/${id}`)
 }
 
+const daysOrHours = computed(() => toDaysOrHours(props.message.deadline || ''))
+
 const deadlineColor = computed(() => {
   if (props.message.deadline === null) {
     return 'primary'
   }
-  if (isBefore(new Date(props.message.deadline), Date.now())) {
+  if (daysOrHours.value.deadlined || (daysOrHours.value.type == 'hours' && daysOrHours.value.value <= 0)) {
     return 'rose'
   }
-  if (differenceInDays(new Date(props.message.deadline), Date.now()) <= 7) {
+  if (daysOrHours.value.type === 'hours') {
     return 'amber'
+  }
+  if (daysOrHours.value.value <= 7) {
+    return 'yellow'
   }
   return 'emerald'
 })
-
-const deadlineDays = computed(() => differenceInDays(new Date(props.message.deadline || Date.now()), Date.now()))
 </script>
 
 <template>
@@ -106,12 +108,12 @@ const deadlineDays = computed(() => differenceInDays(new Date(props.message.dead
               </UBadge>
             </UTooltip>
           </div>
-          <p class="thin">Última atualização: {{ toDateTime(message.lastUpdateDate) }}</p>
-          <p class="thin">Desde: {{ toDateTime(message.creationDate) }}</p>
+          <p class="thin">Última atualização: {{ toDateTimeString(message.lastUpdateDate) }}</p>
+          <p class="thin">Desde: {{ toDateTimeString(message.creationDate) }}</p>
           <div class="deadline">
             <Transition name="fade" mode="out-in">
               <p v-if="message.deadline !== null" key="deadlined" class="thin">
-                Prazo: {{ toDate(message.deadline!) }}
+                Prazo: {{ toDateTimeString(message.deadline!) }}
               </p>
               <p v-else key="no-deadlined" class="thin">Prazo não definido.</p>
             </Transition>
@@ -144,14 +146,14 @@ const deadlineDays = computed(() => differenceInDays(new Date(props.message.dead
           <UBadge v-if="message.deadline !== null" :color="deadlineColor">
             <Transition name="fade" mode="out-in">
               <div v-if="!message.finalizationDate" key="current" class="deadline-badge">
-                <p v-if="deadlineDays >= 0">Prazo para</p>
+                <p v-if="!daysOrHours.deadlined">Prazo para</p>
                 <p v-else>Vencido há</p>
-                <p class="days">{{ Math.abs(deadlineDays) }}</p>
-                <p>{{ Math.abs(deadlineDays) === 1 ? 'Dia' : 'Dias' }}</p>
+                <p class="days">{{ daysOrHours.value }}</p>
+                <p>{{ `${daysOrHours.type === 'days' ? 'Dia' : 'Hora'}${daysOrHours.value !== 1 ? 's' : ''}` }}</p>
               </div>
               <div v-else key="finalized" class="deadline-bagde">
                 <p>Finalizado</p>
-                <p>{{ toDateTime(message.finalizationDate) }}</p>
+                <p>{{ toDateTimeString(message.finalizationDate) }}</p>
               </div>
             </Transition>
           </UBadge>
