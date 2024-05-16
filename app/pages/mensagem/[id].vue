@@ -70,6 +70,7 @@ const remove = (commentInfo: { comment: TComment; removed: boolean }) => {
             </header>
             <p class="header">Última atualização: {{ toDateTimeString(stateData!.lastUpdateDate) }}</p>
             <p class="header">Desde: {{ toDateTimeString(stateData!.creationDate) }}</p>
+            <p class="header" v-if="stateData!.deadline">Prazo: {{ toDateTimeString(stateData!.deadline) }}</p>
           </template>
           <Viewer v-model="stateData!.text" />
           <template #footer>

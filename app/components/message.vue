@@ -169,7 +169,6 @@ const deadlineColor = computed(() => {
         </Transition>
       </header>
     </template>
-
     <Viewer v-model="message.text" />
     <template #footer>
       <section class="actions">
