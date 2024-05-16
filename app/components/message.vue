@@ -22,7 +22,7 @@ watch(deadline, async (newValue, oldValue) => {
     if (error.value) {
       danger('Erro ao atualizar o Prazo.', error.value?.data.message)
     } else {
-      props.message.deadline = newValue
+      props.message.deadline = newValue.toISOString()
     }
   }
 })
@@ -81,16 +81,16 @@ const deadlineColor = computed(() => {
   if (props.message.deadline === null) {
     return 'primary'
   }
-  if (isBefore(props.message.deadline, Date.now())) {
+  if (isBefore(new Date(props.message.deadline), Date.now())) {
     return 'rose'
   }
-  if (differenceInDays(props.message.deadline, Date.now()) <= 7) {
+  if (differenceInDays(new Date(props.message.deadline), Date.now()) <= 7) {
     return 'amber'
   }
   return 'emerald'
 })
 
-const deadlineDays = computed(() => differenceInDays(props.message.deadline!, Date.now()))
+const deadlineDays = computed(() => differenceInDays(new Date(props.message.deadline || Date.now()), Date.now()))
 </script>
 
 <template>

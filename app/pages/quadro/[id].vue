@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { DatePickerDate } from 'v-calendar/dist/types/src/use/datePicker.js'
 import { type TMessage } from '~/composables/api/message'
 
 const { boards } = storeToRefs(useBoardStore())
@@ -37,7 +38,7 @@ const askAdd = () => {
     const { add } = useMessageApi()
     const { data, error } = await add({
       text: text.value,
-      deadline: deadlined.value ? deadline.value : null,
+      deadline: deadline.value.toISOString() ?? null,
       board: { id: boardId },
     })
     if (error.value) {
@@ -93,6 +94,8 @@ const clearMessage = () => {
   deadlined.value = false
   deadline.value = new Date()
 }
+
+onMounted(() => (deadline.value = new Date()))
 </script>
 
 <template>

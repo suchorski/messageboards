@@ -9,7 +9,7 @@ export type TCommentDTO = {
 export type TComment = {
   id?: number
   text: string
-  creationDate: Date
+  creationDate: string
   deleted: boolean
   author: TUser
 }

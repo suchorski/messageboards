@@ -4,27 +4,27 @@ import type { TUser } from './user'
 
 export type TMessageDTO = {
   text: string
-  deadline: Date | null
+  deadline: string | null
   board: { id: number }
 }
 
 export type TMessage = {
   id?: number
   text: string
-  creationDate: Date
-  lastUpdateDate: Date
-  finalizationDate: Date
-  deadline: Date | null
+  creationDate: string
+  lastUpdateDate: string
+  finalizationDate: string | null
+  deadline: string | null
   author: TUser
 }
 
 export type TMessageComments = {
   id?: number
   text: string
-  creationDate: Date
-  lastupdateDate: Date
-  finalizationDate: Date
-  deadline: Date | null
+  creationDate: string
+  lastupdateDate: string
+  finalizationDate: string | null
+  deadline: string | null
   author: TUser
   comments: TComment[]
 }
