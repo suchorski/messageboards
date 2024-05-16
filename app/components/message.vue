@@ -7,11 +7,20 @@ const emit = defineEmits<{
   (e: 'remove', value: TMessage): void
 }>()
 
+const { public: config } = useRuntimeConfig()
+
 const { danger } = useToaster()
 const { show, hide } = useLoading()
 const { toDateTimeString, toDaysOrHours } = useDate()
 
-const deadline = ref<Date>(new Date(props.message.deadline ?? new Date(new Date().setHours(16, 0, 0, 0))))
+const deadline = ref<Date>(
+  new Date(
+    props.message.deadline ??
+      new Date(
+        new Date().setHours(Number(config.DEFAULT_DEADLINE_HOURS), Number(config.DEFAULT_DEADLINE_MINUTES), 0, 0)
+      )
+  )
+)
 watch(deadline, async (newValue, oldValue) => {
   if (newValue !== oldValue) {
     const { updateDeadline } = useMessageApi()

@@ -18,6 +18,8 @@ export default defineNuxtConfig({
       KEYCLOAK_REALM: process.env.KEYCLOAK_REALM,
       KEYCLOAK_CLIENT_ID: process.env.KEYCLOAK_CLIENT_ID,
       API_ENTRYPOINT: process.env.API_ENTRYPOINT,
+      DEFAULT_DEADLINE_HOURS: process.env.DEFAULT_DEADLINE_HOURS || '16',
+      DEFAULT_DEADLINE_MINUTES: process.env.DEFAULT_DEADLINE_MINUTES || '0',
     },
   },
 })

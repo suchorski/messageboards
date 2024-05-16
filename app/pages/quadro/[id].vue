@@ -96,8 +96,9 @@ const clearMessage = () => {
 }
 
 onMounted(() => {
+  const { public: config } = useRuntimeConfig()
   deadline.value = new Date()
-  deadline.value.setHours(16, 0, 0, 0)
+  deadline.value.setHours(Number(config.DEFAULT_DEADLINE_HOURS), Number(config.DEFAULT_DEADLINE_MINUTES), 0, 0)
 })
 </script>
 

@@ -45,6 +45,8 @@ services:
         KEYCLOAK_REALM: ${KEYCLOAK_REALM}
         KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
         API_ENTRYPOINT: ${API_ENTRYPOINT}
+        DEFAULT_DEADLINE_HOURS: ${DEFAULT_DEADLINE_HOURS}
+        DEFAULT_DEADLINE_MINUTES: ${DEFAULT_DEADLINE_MINUTES}
     container_name: messageboards-frontend
     restart: unless-stopped
     depends_on:
