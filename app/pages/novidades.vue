@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 const updates = [
   {
+    version: '1.4.0',
+    news: ['Adicionado suporte para definir o horário do prazo do aviso.'],
+  },
+  {
     version: '1.3.0',
     news: [
       'A mensagem é salva em rascunho até ser enviada.',
