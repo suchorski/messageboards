@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class ApiApplication {
 
-	public static final long VERSION = -1_003_000L;
+	public static final long VERSION = -1_004_000L;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
