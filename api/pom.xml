@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.suchorski.messageboards</groupId>
 	<artifactId>messageboards-api</artifactId>
-	<version>1.4.1</version>
+	<version>1.4.2</version>
 	<name>api</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
