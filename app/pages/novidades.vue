@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 const updates = [
   {
+    version: '1.4.2',
+    news: ['Corrigido erro onde todos os avisos tinham prazo.'],
+  },
+  {
     version: '1.4.1',
     news: ['Corrigido erro na tela de comentários.', 'Adicionado informação de prazo na tela de comentários'],
   },
