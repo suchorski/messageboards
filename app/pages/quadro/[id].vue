@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { DatePickerDate } from 'v-calendar/dist/types/src/use/datePicker.js'
 import { type TMessage } from '~/composables/api/message'
 
 const { boards } = storeToRefs(useBoardStore())
@@ -33,14 +32,17 @@ watch(stateData, (newValue, oldValue) => {
 })
 
 const askAdd = () => {
+  const { show, hide } = useLoading()
   const { confirm } = useModals()
   confirm('Adicionar Novo Aviso', 'Deseja realmente adicionar um novo Aviso?', async () => {
     const { add } = useMessageApi()
+    show()
     const { data, error } = await add({
       text: text.value,
-      deadline: deadline.value.toISOString() ?? null,
+      deadline: deadlined.value ? deadline.value.toISOString() : null,
       board: { id: boardId },
     })
+    hide()
     if (error.value) {
       warning('Erro ao adicionar o Aviso.', error.value?.data.message)
     } else {
