@@ -39,3 +39,6 @@ keycloak:
     nickname: ${KEYCLOAK_CLAIMS_NICKNAME}
     rank: ${KEYCLOAK_CLAIMS_RANK}
     company: ${KEYCLOAK_CLAIMS_COMPANY}
+
+config:
+  frontend-url: ${CONFIG_FRONTEND_URL}

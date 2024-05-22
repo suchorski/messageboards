@@ -38,6 +38,7 @@
 - `KEYCLOAK_CLAIMS_NICKNAME`: Keycloak claim of nickname.
 - `KEYCLOAK_CLAIMS_RANK`: Keycloak claim of rank.
 - `KEYCLOAK_CLAIMS_COMPANY`: Keycloak claim of company.
+- `CONFIG_FRONTEND_URL`: Frontend URL.
 
 ### Keycloak roles
 

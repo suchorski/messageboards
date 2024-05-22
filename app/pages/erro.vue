@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+definePageMeta({ layout: 'error' })
 const message = useRoute().query.mensagem as string
 </script>
 

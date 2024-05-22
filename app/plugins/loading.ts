@@ -1,4 +1,5 @@
 export default defineNuxtPlugin(() => {
+  const config = useRuntimeConfig().public
   const router = useRouter()
   const showingLoading = useState(useLoadingKey())
   const { boards, loaded } = storeToRefs(useBoardStore())
@@ -8,13 +9,16 @@ export default defineNuxtPlugin(() => {
     showingLoading.value = false
     if (!loaded.value) {
       const { data, error } = await list()
-      if (error.value) {
-        useRouter().push('/erro?mensagem=Erro ao carregar os quadros de avisos.')
-      } else {
-        boards.value = data.value?.content || []
-        boards.value.sort(sorter)
-        loaded.value = true
+      loaded.value = true
+      if (error.value?.message.toLowerCase().match(/.+?:\s\<no response\>.+?/)) {
+        return (window.location.href = config.API_ENTRYPOINT)
       }
+      if (error.value) {
+        const message = error.value?.message || 'Erro ao carregar os quadros de avisos.'
+        return router.push(`/erro?mensagem=${message}`)
+      }
+      boards.value = data.value?.content || []
+      boards.value.sort(sorter)
     }
   })
 })
