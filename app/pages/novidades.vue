@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 const updates = [
   {
+    version: '1.4.3',
+    news: ['Adicionado opção de redirecionamento para o backend em caso de falha no certificado.'],
+  },
+  {
     version: '1.4.2',
     news: ['Corrigido erro onde todos os avisos tinham prazo.'],
   },
